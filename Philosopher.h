@@ -1,14 +1,12 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "Fork.h"
 
 class Philosopher
 {
     private:
         int philosopherId;
         int state;
-        Fork left, right;
 
     public:
         Philosopher();

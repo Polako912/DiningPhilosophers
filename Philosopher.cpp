@@ -1,5 +1,4 @@
 #include "Philosopher.h"
-#include "Fork.h"
 #include <iostream>
 #include <random>
 

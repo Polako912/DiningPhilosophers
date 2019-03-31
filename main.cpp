@@ -22,6 +22,8 @@ int main()
 {
     srand(static_cast<unsigned int>(time(nullptr)));
 
+    pthread_mutex_init(&mt, NULL);
+
     int number = 0;
 
     std::cout<<"Podaj ilosc filozofow: "<<std::endl;
@@ -33,8 +35,6 @@ int main()
     {
         philosophers.push_back(i+1);
     }
-
-    pthread_mutex_init(&mt, NULL);
 
     for(int j = 0; j < number; j++)
     {
@@ -66,12 +66,11 @@ void *LifeTime(void *arg)
     int *temp = (int *)arg;
     Philosopher philo (*temp);
 
-    
+    philo.setSate(rand()%3);
 
     while(run)
     {
-        philo.setSate(rand()%3);
-
+        
         if(philo.getState() == Philosopher::State::Hungry)
         {   
             usleep(philo.RandTime());
@@ -79,7 +78,7 @@ void *LifeTime(void *arg)
             philo.hungry();
             pthread_mutex_unlock(&mt);
             usleep(philo.RandTime());
-            philo.setSate(Philosopher::State::Thinking);
+            philo.setSate(Philosopher::State::Eating);
         }
 
         if(philo.getState() == Philosopher::State::Eating)
